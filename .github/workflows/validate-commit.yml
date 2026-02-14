@@ -1,0 +1,16 @@
+name: Validate Commit Format
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check commit messages
+        run: |
+          if ! git log --format=%B origin/main..HEAD | grep -E 'AB#[0-9]+'; then
+            echo "Commit message must contain AB#<WorkItemID>"
+            exit 1
+          fi
