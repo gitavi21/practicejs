@@ -1,0 +1,15 @@
+Promise.customall = function(promises){
+  let c = 0;
+  let z = [];
+  return new Promise((res,rej)=>{
+    promises.forEach((promise,index)=>{
+      promise.then((data)=>{
+        z[index] = data
+        c++;
+        if(c==promises.length){
+          res(z)
+        }
+      })
+    })
+  })
+}
